@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
-use List::Util qw(max);
-my @files = <corpus2/*png>;
+use List::Util qw(max min);
+my @files = <corpus4/*png>;
 my $count = 0;
 `rm -rf out`;
 mkdir("out");
@@ -15,7 +15,8 @@ while(<>) {
 		$i += -1 + int(rand(3));
 		$i = max($i,0);
 	}
+	$i = min($i,scalar(@files)-1);
 	my $file = $files[$i];
-	print "# $file $left $right $rms$/";
+	print "# $i $file $left $right $rms$/";
 	print "ln $file ",sprintf('out/%06d.png',$count++),"$/";
 }
